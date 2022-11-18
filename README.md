@@ -48,10 +48,13 @@ Ajax.connect({
 Если ваш запрос не передаёт никакие данные на сервер, то тип данных указывать не требуется (простой запрос).
 Если же возникает необходимость передать на сервер данные, то это можно сделать, указав следующие данные:
 
-- _data_ -  данные передоваемые в запросе (строка или объект, обычно содержит данные формы);
-- _json_ -  JSON-данные;
+- _data_ -  данные передоваемые в запросе (строка или объект, обычно содержит данные формы)
+            [пример](#d);
+- _json_ -  JSON-данные
+            [пример](#js);
 - _file_ -  выгрузка файла на сервер (по умолчанию false). Для передачи файла(ов) необходимо указать
-            объект формы загрузки.
+            объект формы загрузки
+            [пример](#f).
 
 Типы **возвращаемых данных**:
 
@@ -79,6 +82,72 @@ Ajax.connect({
     error: function( status, statusText ) {},
     errorConnect: function() {},
 });
+```
+
+<a name="d"></a>Пример для передачи DATA-данных из формы.
+
+```html
+<form name="person">
+    <input name="name" value="Петя">
+    <input name="surname" value="Васечкин">
+</form>
+
+<script>
+    // Заполним FormData данными из формы:
+    let formData = new FormData( document.forms.person );
+    // Добавим ещё одно поле:
+    formData.append( "middle", "Иванович" );
+    Ajax.connect({
+        url: 'http://localhost/...',
+        data: formData,
+        success: function(html) {
+            alert('Ответ успешно получен! Полученный код Html: ' + html);
+        },
+        error: function( status, statusText ) {},
+        errorConnect: function() {},
+    });
+</script>
+```
+
+<a name="js"></a>Пример для передачи JSON-данных.
+
+```js
+Ajax.connect({
+    url: 'http://localhost/...',
+    json: {
+        name: "Вася",
+        surname: "Петров"
+    },
+    success: function(html) {
+        alert('Ответ успешно получен! Полученный код Html: ' + html);
+    },
+    error: function( status, statusText ) {},
+    errorConnect: function() {},
+});
+```
+
+<a name="f"></a>Пример для передачи файла на сервер.
+
+```html
+<input type="file" id="upload-file">
+
+<script>
+let f = document.getElementById('upload-file');
+f.addEventListener('change', (e) => {
+    Ajax.connect({
+        url: 'http://localhost/...',
+        file: f.files[0],
+        progress: fuction( loaded, total ) {
+            alert('Загружено байт {$loaded} из {$total}');
+        },
+        success: function() {
+            alert('Файл успешно загружен!');
+        },
+        error: function( status, statusText ) {},
+        errorConnect: function() {},
+    });
+});
+</script>
 ```
 
 Пример для приёма JSON-данных.
