@@ -71,12 +71,14 @@ export default {
                 });
 
                 request.open( 'POST', p.url, p.async );
+                request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
                 request.send( p.file );
             }
             else {
                 if ( p.type == 'json' ) request.responseType = 'json';
                 if ( p.type == 'document' ) request.responseType = 'document';
                 request.open( p.method, p.url, p.async );
+                request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
                 request.addEventListener('load', (e) => {
                     if (request.status != 200) {

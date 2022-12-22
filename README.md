@@ -23,7 +23,7 @@ bin/cake plugin load Extensions
 Для подключения библиотеки используйте:
 
 ```js
-import Ajax from '../../../../../Extensions/webroot/js/components/ext/ajax.js';
+import Ajax from '../../../../Extensions/js/components/ext/ajax.js';
 ```
 
 Выполнить GET-запрос с минимальным количеством параметров:
