@@ -1,6 +1,6 @@
 {
     "name": "valeriy-brunov/extensions",
-    "description": "Extensions плагин для CakePHP",
+    "description": "Набор полезных расширений: AJAX, Cursor.",
     "type": "cakephp-plugin",
     "home": "https://github.com/valeriy-brunov/extensions",
     "license": "MIT",
